@@ -4,8 +4,8 @@ class MemberWorkspaceRepository {
     static async create(user_id, workspace_id, role) {
         try {
             await MemberWorkspace.insertOne({
-                user_id: user_id,
-                workspace_id: workspace_id,
+                id_user: user_id,
+                id_workspace: workspace_id,
                 role: role,
             });
         } catch (error) {
@@ -68,6 +68,30 @@ class MemberWorkspaceRepository {
                 throw error;
             }
         }
+    }
+    static async getAllByUserId(user_id) {
+        const members = await MemberWorkspace.find({
+            id_user: user_id,
+        }).populate("id_workspace");
+        const members_list_formatted = members.map((member) => {
+            return {
+                workspace_id: member.id_workspace._id,
+                workspace_name: member.id_workspace.name,
+                workspace_created_at: member.id_workspace.created_at,
+                workspace_url_image: member.id_workspace.url_image,
+                member_id: member._id,
+                member_user_id: member.id_user,
+                member_role: member.role,
+            };
+        });
+        return members_list_formatted;
+    }
+    static async getByUserIdAndWorkspaceId(user_id, workspace_id) {
+        const member = await MemberWorkspace.findOne({
+            id_user: user_id,
+            id_workspace: workspace_id,
+        });
+        return member;
     }
 }
 

@@ -5,29 +5,6 @@ export class CustomError extends Error {
     }
 }
 
-/* const manejarError = (accionCallback) => {
-    try {
-        accionCallback();
-    } catch (error) {
-        if (error.status) {
-            console.error(
-                "[CLIENT ERROR]: " + error.message,
-                "Status: " + error.status
-            );
-        } else {
-            console.error("[SERVER ERROR]: " + error.message);
-        }
-    }
-};
-
-manejarError(() => {
-    sumar(2);
-});
-
-manejarError(() => {
-    sakldhsudosadoas;
-}); */
-
 export class ServerError extends Error {
     constructor(status, message) {
         super(message);
