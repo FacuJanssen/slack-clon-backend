@@ -31,6 +31,17 @@ class ChannelRepository {
             throw error;
         }
     }
+    static async getByWorkspaceId(workspace_id) {
+        try {
+            const found_channels = await Channel.find({
+                id_workspace: workspace_id,
+            });
+            return found_channels;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
     static async deleteById(channel_id) {
         try {
             const response = await Channel.findByIdAndDelete(channel_id);

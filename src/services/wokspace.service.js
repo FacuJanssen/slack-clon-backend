@@ -10,12 +10,16 @@ class WorkspaceService {
         MemberWorkspaceRepository.getAllByUserId(user_id);
     }
     static async create(user_id, name, url_image) {
-        console.log(user_id, name, url_image);
+        /* console.log(user_id, name, url_image); */
         const workspace_created = await WorkspaceRepository.create(
             name,
             url_image
         );
-        await MemberWorkspaceRepository.create(user_id, workspace._id, "admin");
+        await MemberWorkspaceRepository.create(
+            user_id,
+            workspace_created._id,
+            "admin"
+        );
         return workspace_created;
     }
     static async invite(
