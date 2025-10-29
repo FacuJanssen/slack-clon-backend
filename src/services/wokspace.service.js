@@ -7,7 +7,8 @@ import jwt from "jsonwebtoken";
 import UserRespository from "../repositories/user.repository.js";
 class WorkspaceService {
     static async getAll(user_id) {
-        MemberWorkspaceRepository.getAllByUserId(user_id);
+        const members = await MemberWorkspaceRepository.getAllByUserId(user_id);
+        return members;
     }
     static async create(user_id, name, url_image) {
         /* console.log(user_id, name, url_image); */
