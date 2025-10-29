@@ -13,9 +13,11 @@ class ChannelRepository {
             throw error;
         }
     }
-    static async getAll() {
+    static async getAllByWorkspaceId(wokspace_id) {
         try {
-            const found_channels = await Channel.find();
+            const found_channels = await Channel.find({
+                id_workspace: wokspace_id,
+            });
             return found_channels;
         } catch (error) {
             console.error(error);
@@ -31,17 +33,7 @@ class ChannelRepository {
             throw error;
         }
     }
-    static async getByWorkspaceId(workspace_id) {
-        try {
-            const found_channels = await Channel.find({
-                id_workspace: workspace_id,
-            });
-            return found_channels;
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
+
     static async deleteById(channel_id) {
         try {
             const response = await Channel.findByIdAndDelete(channel_id);
@@ -58,6 +50,18 @@ class ChannelRepository {
                 update_channel
             );
             return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+    static async getByIdAndWorkspaceId(workspace_id, channel_id) {
+        try {
+            const found_channel = await Channel.findOne({
+                id_workspace: workspace_id,
+                _id: channel_id,
+            });
+            return found_channel;
         } catch (error) {
             console.error(error);
             throw error;
