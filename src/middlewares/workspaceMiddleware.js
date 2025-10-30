@@ -1,13 +1,13 @@
 import { ServerError } from "../error.js";
 import MemberWorkspaceRepository from "../repositories/memberWokspace.repository.js";
-import WorkspaceService from "../services/wokspace.service.js";
+import WorkspaceRepository from "../repositories/workspace.repository.js";
 
 function workspaceMiddleware(valid_member_roles = []) {
     return async function (req, res, next) {
         try {
             const { workspace_id } = req.params;
             const user = req.user;
-            const workspace_selected = await WorkspaceService.getById(
+            const workspace_selected = await WorkspaceRepository.getById(
                 workspace_id
             );
             if (!workspace_selected) {
@@ -15,7 +15,7 @@ function workspaceMiddleware(valid_member_roles = []) {
             }
             const member =
                 await MemberWorkspaceRepository.getByUserIdAndWorkspaceId(
-                    user._id,
+                    user.user_id,
                     workspace_id
                 );
             if (!member) {
@@ -28,7 +28,7 @@ function workspaceMiddleware(valid_member_roles = []) {
                 throw new ServerError(403, "Forbidden");
             }
             req.member = member;
-            req.workspace = workspace_selected;
+            req.workspace_selected = workspace_selected;
             next();
         } catch (error) {
             if (error.status) {

@@ -11,7 +11,6 @@ class WorkspaceService {
         return members;
     }
     static async create(user_id, name, url_image) {
-        /* console.log(user_id, name, url_image); */
         const workspace_created = await WorkspaceRepository.create(
             name,
             url_image
@@ -31,17 +30,17 @@ class WorkspaceService {
     ) {
         const user_invited = await UserRespository.getByEmail(email_invited);
         if (!user_invited) {
-            throw new ServerError("User not found");
+            throw new ServerError(404, "User not found");
         }
         const already_member =
             await MemberWorkspaceRepository.getByUserIdAndWorkspaceId(
                 user_invited._id,
                 workspace_selected._id
             );
-        if (!already_member) {
-            throw new ServerError("User is already member of workspace");
+        if (already_member) {
+            throw new ServerError(400, "User is already member of workspace");
         }
-        const invite_token = jwt.sing(
+        const invite_token = jwt.sign(
             {
                 id_invited: user_invited._id,
                 id_inviter: member._id,

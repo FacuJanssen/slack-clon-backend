@@ -1,3 +1,4 @@
+import { request } from "express";
 import WorkspaceRepository from "../repositories/workspace.repository.js";
 import WorkspaceService from "../services/wokspace.service.js";
 
@@ -5,7 +6,7 @@ class WorkspaceController {
     static async getAll(req, res) {
         try {
             const user = req.user;
-            const workspaces = await WorkspaceService.getAll(user._id);
+            const workspaces = await WorkspaceService.getAll(user.user_id);
             res.status(200).json({
                 ok: true,
                 status: 200,
@@ -75,7 +76,6 @@ class WorkspaceController {
         try {
             const { member, workspace_selected, user } = req;
             const { email_invited, role_invited } = req.body;
-
             await WorkspaceService.invite(
                 member,
                 workspace_selected,

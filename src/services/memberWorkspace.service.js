@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import MemberWorkspaceRepository from "../repositories/memberWokspace.repository.js";
 import ENVIRONMENT from "../config/environment.config.js";
 
-class MemberWorkspaceSerrvice {
+class MemberWorkspaceService {
     static async confirmInvitation(invitation_token) {
         const invitation_token_payload = jwt.verify(
             invitation_token,
@@ -26,4 +26,4 @@ class MemberWorkspaceSerrvice {
     }
 }
 
-export default MemberWorkspaceSerrvice;
+export default MemberWorkspaceService;

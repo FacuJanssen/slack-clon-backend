@@ -69,4 +69,5 @@ workspaceRouter.post(
     workspaceMiddleware(["admin"]),
     WorkspaceController.invite
 );
+
 export default workspaceRouter;

@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import MemberWorkspaceRepository from "../repositories/memberWokspace.repository.js";
 import ENVIRONMENT from "../config/environment.config.js";
+import MemberWorkspaceService from "../services/memberWorkspace.service.js";
 class MemberController {
     static async confirmInvitation(req, res) {
         try {
             const { invitation_token } = req.params;
-            await MemberWorkspaceRepository.confirmInvitation(invitation_token);
+            await MemberWorkspaceService.confirmInvitation(invitation_token);
             res.redirect(`${ENVIRONMENT.URL_FRONTEND}/login`);
         } catch (error) {
             if (error instanceof jwt.JsonWebTokenError) {

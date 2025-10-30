@@ -3,7 +3,7 @@ import MemberController from "../controller/member.controller.js";
 
 const memberRouter = express.Router();
 memberRouter.get(
-    "/confirm/:intation_token",
+    "/confirm/:invitation_token",
     MemberController.confirmInvitation
 );
 
