@@ -8,10 +8,9 @@ Responsabilidades:
     - Verificar que exista el channel en DB y pertenezca al workspace
     - Guardar el channel_selected dentro de el objeto request
 */
-async function channelMiddleware(request, response, next) {
+async function channelMiddleware(req, res, next) {
     try {
-        const { workspace_selected, member, user } = request;
-        const { workspace_id, channel_id } = request.params;
+        const { workspace_id, channel_id } = req.params;
         const channel_selected = await ChannelRepository.getByIdAndWorkspaceId(
             workspace_id,
             channel_id
@@ -19,7 +18,7 @@ async function channelMiddleware(request, response, next) {
         if (!channel_selected) {
             throw new ServerError(404, "Channel not found");
         }
-        request.channel_selected = channel_selected;
+        req.channel_selected = channel_selected;
         next();
     } catch (error) {
         if (error.status) {

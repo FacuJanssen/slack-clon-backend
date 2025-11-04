@@ -22,7 +22,7 @@ function workspaceMiddleware(valid_member_roles = []) {
                 throw new ServerError(401, "Unauthorized");
             }
             if (
-                !valid_member_roles.length > 0 &&
+                valid_member_roles.length > 0 &&
                 !valid_member_roles.includes(member.role)
             ) {
                 throw new ServerError(403, "Forbidden");

@@ -107,50 +107,21 @@ class WorkspaceController {
             }
         }
     }
-    static async getById(req, res) {
-        try {
-            const { workspace_selected, user, member } = req;
-            const channels = await WorkspaceService.getById(workspace_selected);
-            res.status(200).json({
-                ok: true,
-                status: 200,
-                message: "Workspace found",
-                data: {
-                    workspace: workspace_selected,
-                    channels: channels,
-                },
-            });
-        } catch (error) {
-            if (error.status) {
-                return res.status(error.status).json({
-                    ok: false,
-                    message: error.message,
-                    status: error.status,
-                });
-            } else {
-                console.error(
-                    "[SERVER ERROR]: Error at getting workspace",
-                    error
-                );
-                return res.status(500).json({
-                    ok: false,
-                    message: "Internal server error",
-                    status: 500,
-                });
-            }
-        }
-    }
     static async update(req, res) {
         try {
             const { workspace_selected } = req;
             const { name, url_image } = req.body;
-            await WorkspaceService.update(workspace_selected, name, url_image);
+            const workspace_updated = await WorkspaceService.update(
+                workspace_selected,
+                name,
+                url_image
+            );
             res.status(200).json({
                 ok: true,
                 status: 200,
                 message: "Workspace updated",
                 data: {
-                    workspace_updated: workspace_selected,
+                    workspace_updated,
                 },
             });
         } catch (error) {

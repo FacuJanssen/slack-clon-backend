@@ -7,7 +7,6 @@ class ChannelRepository {
                 id_workspace: workspace_id,
                 name: name,
             });
-            console.log("[SERVER] Channel created");
         } catch (error) {
             console.error("[SERVER ERROR] Channel not created, ", error);
             throw error;
@@ -33,7 +32,6 @@ class ChannelRepository {
             throw error;
         }
     }
-
     static async deleteById(channel_id) {
         try {
             const response = await Channel.findByIdAndDelete(channel_id);
@@ -43,13 +41,13 @@ class ChannelRepository {
             throw error;
         }
     }
-    static async updateById(channel_id, update_channel) {
+    static async updateById(channel_id, channel_update) {
         try {
-            const response = await Channel.findByIdAndUpdate(
+            const update = await Channel.findByIdAndUpdate(
                 channel_id,
-                update_channel
+                channel_update
             );
-            return response;
+            return update;
         } catch (error) {
             console.error(error);
             throw error;
