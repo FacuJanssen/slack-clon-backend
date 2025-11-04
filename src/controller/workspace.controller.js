@@ -6,7 +6,7 @@ class WorkspaceController {
     static async getAll(req, res) {
         try {
             const user = req.user;
-            const workspaces = await WorkspaceService.getAll(user.user_id);
+            const workspaces = await WorkspaceRepository.getAll(user.id);
             res.status(200).json({
                 ok: true,
                 status: 200,
@@ -130,6 +130,69 @@ class WorkspaceController {
             } else {
                 console.error(
                     "[SERVER ERROR]: Error at getting workspace",
+                    error
+                );
+                return res.status(500).json({
+                    ok: false,
+                    message: "Internal server error",
+                    status: 500,
+                });
+            }
+        }
+    }
+    static async update(req, res) {
+        try {
+            const { workspace_selected } = req;
+            const { name, url_image } = req.body;
+            await WorkspaceService.update(workspace_selected, name, url_image);
+            res.status(200).json({
+                ok: true,
+                status: 200,
+                message: "Workspace updated",
+                data: {
+                    workspace_updated: workspace_selected,
+                },
+            });
+        } catch (error) {
+            if (error.status) {
+                return res.status(error.status).json({
+                    ok: false,
+                    message: error.message,
+                    status: error.status,
+                });
+            } else {
+                console.error(
+                    "[SERVER ERROR]: Error at updating workspace",
+                    error
+                );
+                return res.status(500).json({
+                    ok: false,
+                    message: "Internal server error",
+                    status: 500,
+                });
+            }
+        }
+    }
+
+    static async delete(req, res) {
+        try {
+            const { workspace_selected } = req;
+            await WorkspaceService.delete(workspace_selected);
+            res.status(200).json({
+                ok: true,
+                status: 200,
+                message: "Workspace deleted",
+            });
+        } catch (error) {
+            if (error.status) {
+                return res.status(error.status).json({
+                    ok: false,
+                    message: error.message,
+                    status: error.status,
+                });
+            } else {
+                console.error(
+                    "[SERVER ERROR]: Error at deleting workspace",
                     error
                 );
                 return res.status(500).json({

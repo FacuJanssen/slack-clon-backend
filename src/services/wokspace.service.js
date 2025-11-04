@@ -60,6 +60,19 @@ class WorkspaceService {
                 <a href="${ENVIRONMENT.URL_BACKEND}/api/member/confirm/${invite_token}">Accept</a>`,
         });
     }
+    static async update(workspace_selected, name, url_image) {
+        const workspace_update = {
+            name: name,
+            url_image: url_image,
+        };
+        return await WorkspaceRepository.updateById(
+            workspace_selected._id,
+            workspace_update
+        );
+    }
+    static async delete(workspace_selected) {
+        return await WorkspaceRepository.deleteById(workspace_selected);
+    }
 }
 
 export default WorkspaceService;

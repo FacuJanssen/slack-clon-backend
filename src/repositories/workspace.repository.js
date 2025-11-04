@@ -58,7 +58,8 @@ class WorkspaceRepository {
             return update;
         } catch (error) {
             console.error(
-                "[SERVER ERROR]: no se pudo actualizar el workspace",
+                "[SERVER ERROR]: Could not update workspace with id" +
+                    worksapce_id,
                 error
             );
             throw error;

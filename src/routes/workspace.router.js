@@ -13,20 +13,6 @@ workspaceRouter.get("/", authMiddleware, WorkspaceController.getAll);
 
 workspaceRouter.post("/", authMiddleware, WorkspaceController.create);
 
-// POST /workspaces/:workspace_id/channels (Solo admins)
-/* 
-body: {
-    name
-}
-- Crear un nuevo canal
-*/
-
-// GET /workspaces/:workspace_id
-/* 
-- Obtener los detalles de un espacio de trabajo
-- Cargar la lista de canales de un espacio de trabajo
-*/
-
 workspaceRouter.get(
     "/:workspace_id",
     authMiddleware,
@@ -68,6 +54,20 @@ workspaceRouter.post(
     authMiddleware,
     workspaceMiddleware(["admin"]),
     WorkspaceController.invite
+);
+
+workspaceRouter.put(
+    "/:workspace_id/update",
+    authMiddleware,
+    workspaceMiddleware(["admin"]),
+    WorkspaceController.update
+);
+
+workspaceRouter.delete(
+    "/:workspace_id/delete",
+    authMiddleware,
+    workspaceMiddleware(["admin"]),
+    WorkspaceController.delete
 );
 
 export default workspaceRouter;
