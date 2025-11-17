@@ -92,21 +92,21 @@ workspaceRouter.get(
 );
 
 // Actualizar mensajes
-/* workspaceRouter.put(
+workspaceRouter.put(
     "/:workspace_id/channels/:channel_id/messages/:message_id/update",
     authMiddleware,
     workspaceMiddleware(),
     channelMiddleware,
     MessageController.update
-); */
+);
 
 // Eliminar mensajes
-/* workspaceRouter.delete(
+workspaceRouter.delete(
     "/:workspace_id/channels/:channel_id/messages/:message_id/delete",
     authMiddleware,
     workspaceMiddleware(),
     channelMiddleware,
     MessageController.delete
-); */
+);
 
 export default workspaceRouter;

@@ -25,6 +25,12 @@ class MessageService {
         );
         return message_updated;
     }
+    static async delete(message_id) {
+        const message_deleted = await MessagesChannelRepository.deleteById(
+            message_id
+        );
+        return message_deleted;
+    }
 }
 
 export default MessageService;

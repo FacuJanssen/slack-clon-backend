@@ -10,6 +10,10 @@ const MessageChannelSchema = new mongoose.Schema({
         required: true,
         ref: "MemberWorkspace",
     },
+    sender_member_email: {
+        type: String,
+        required: true,
+    },
     content: {
         type: String,
         required: true,

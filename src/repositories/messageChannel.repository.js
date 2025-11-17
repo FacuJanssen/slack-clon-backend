@@ -1,12 +1,17 @@
 import MessageChannel from "../models/MessageChannel.model.js";
+import MemberWorkspace from "../models/MemberWorkspace.model.js";
 
 class MessagesChannelRepository {
     static async create(channel_id, sender_member_id, content) {
         try {
+            const member = await MemberWorkspace.findById(
+                sender_member_id
+            ).populate("id_user", "email");
             await MessageChannel.insertOne({
                 channel_id: channel_id,
                 sender_member_id: sender_member_id,
                 content: content,
+                sender_member_email: member.id_user.email,
             });
         } catch (error) {
             console.error("[SERVER ERROR]: Could not create message", error);
@@ -71,7 +76,7 @@ class MessagesChannelRepository {
             populate: {
                 path: "id_user",
                 model: "User",
-                select: "name_id",
+                select: "name_id email",
             },
         });
         const messages_formatted = messages.map((message) => {
@@ -79,7 +84,17 @@ class MessagesChannelRepository {
                 _id: message._id,
                 message_content: message.content,
                 member_id: message.sender_member_id._id,
-                user_name: message.sender_member_id.id_user.name,
+                user_email: message.sender_member_id.id_user.email,
+                created_at: message.created_at,
+                created_at_date: message.created_at.toLocaleDateString("es-AR"),
+                created_at_time: message.created_at.toLocaleTimeString(
+                    "es-AR",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                    }
+                ),
             };
         });
         return messages_formatted;
