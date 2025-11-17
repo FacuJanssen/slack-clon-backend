@@ -20,7 +20,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/workspaces", workspaceRouter);
 app.use("/api/member", memberRouter);
 
-app.listen(ENVIRONMENT.PORT, () => {
+app.listen(ENVIRONMENT.PORT || 8080, () => {
     console.log(
         `Tu servidor se esta ejecutando correctamente en el puerto ${ENVIRONMENT.PORT}`
     );
