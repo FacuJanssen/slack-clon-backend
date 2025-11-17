@@ -13,6 +13,9 @@ app.use(cors());
 
 app.use(express.json());
 
+app.get("/api/test", (req, res) => {
+    res.send({ ok: true });
+});
 app.use("/api/auth", authRouter);
 app.use("/api/workspaces", workspaceRouter);
 app.use("/api/member", memberRouter);
