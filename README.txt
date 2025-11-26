@@ -83,6 +83,10 @@ Member: Enviar mensajes, unirse a canales, ver contenido
  🎯 Planeado
 - [ ] Búsqueda de mensajes y canales
 
+⚙️ Credenciales de prueba
+ - Email: test-user@email.com
+ - Passwords: 123456
+
 📞 Contacto
 
 - Autor: Facu Janssen
