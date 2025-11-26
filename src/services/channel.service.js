@@ -9,10 +9,10 @@ class ChannelService {
         await ChannelRepository.create(workspace_id, name);
         return await ChannelRepository.getAllByWorkspaceId(workspace_id);
     }
-    static async update(channel_id, channel_update) {
+    static async update(channel_id, name) {
         const channel_updated = await ChannelRepository.updateById(
             channel_id,
-            channel_update
+            name
         );
         return channel_updated;
     }

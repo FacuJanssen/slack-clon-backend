@@ -41,12 +41,11 @@ class ChannelRepository {
             throw error;
         }
     }
-    static async updateById(channel_id, channel_update) {
+    static async updateById(channel_id, name) {
         try {
-            const update = await Channel.findByIdAndUpdate(
-                channel_id,
-                channel_update
-            );
+            const update = await Channel.findByIdAndUpdate(channel_id, {
+                name: name,
+            });
             return update;
         } catch (error) {
             console.error(error);
