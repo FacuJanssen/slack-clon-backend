@@ -10,6 +10,12 @@ class WorkspaceService {
         const members = await MemberWorkspaceRepository.getAllByUserId(user_id);
         return members;
     }
+    static async getAllByUserId(user_id) {
+        const workspaces = await MemberWorkspaceRepository.getAllByUserId(
+            user_id
+        );
+        return workspaces;
+    }
     static async create(user_id, name, url_image) {
         const workspace_created = await WorkspaceRepository.create(
             name,

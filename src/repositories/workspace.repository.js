@@ -34,6 +34,19 @@ class WorkspaceRepository {
             throw error;
         }
     }
+    static async getAllByUserId(user_id) {
+        try {
+            const workspaces = await Workspace.find({ id_user: user_id });
+            return workspaces;
+        } catch (error) {
+            console.error(
+                "[SERVER ERROR]: Could not get workspaces by user id " +
+                    user_id,
+                error
+            );
+            throw error;
+        }
+    }
     static async deleteById(workspace_id) {
         try {
             const workspaece_delete = await Workspace.findByIdAndDelete(

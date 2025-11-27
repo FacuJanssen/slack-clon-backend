@@ -79,6 +79,7 @@ Member: Enviar mensajes, unirse a canales, ver contenido
  🔄 En Desarrollo
 - [ ] Sistema de invitaciones por email
 - [ ] Edición y eliminación de mensajes
+- [ ] Validaciones para nombres de workspaces y channels
 
  🎯 Planeado
 - [ ] Búsqueda de mensajes y canales

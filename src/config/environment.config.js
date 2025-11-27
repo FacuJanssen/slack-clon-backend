@@ -14,6 +14,4 @@ const ENVIRONMENT = {
     MONGODB_URI: process.env.MONGODB_URI,
 };
 
-/* console.log(process.env); */
-
 export default ENVIRONMENT;

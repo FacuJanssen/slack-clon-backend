@@ -35,12 +35,46 @@ class WorkspaceController {
             }
         }
     }
+    static async getAllByUserId(req, res) {
+        try {
+            const { user } = req;
+            const workspaces = await WorkspaceService.getAllByUserId(
+                user.user_id
+            );
+            res.status(200).json({
+                ok: true,
+                status: 200,
+                message: "Workspaces found",
+                data: {
+                    workspaces: workspaces,
+                },
+            });
+        } catch (error) {
+            if (error.status) {
+                return res.status(error.status).json({
+                    ok: false,
+                    message: error.message,
+                    status: error.status,
+                });
+            } else {
+                console.error(
+                    "[SERVER ERROR]: Error at getting workspaces",
+                    error
+                );
+                return res.status(500).json({
+                    ok: false,
+                    message: "Internal server error",
+                    status: 500,
+                });
+            }
+        }
+    }
     static async create(req, res) {
         try {
             const user = req.user;
             const { name, url_image } = req.body;
             const workspace_created = await WorkspaceService.create(
-                user.user_id,
+                user.user_id, // Cambia de user.id a user.user_id
                 name,
                 url_image
             );

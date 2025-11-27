@@ -10,7 +10,7 @@ import MessageController from "../controller/message.controller.js";
 const workspaceRouter = express.Router();
 
 // Obtener workspaces
-workspaceRouter.get("/", authMiddleware, WorkspaceController.getAll);
+workspaceRouter.get("/", authMiddleware, WorkspaceController.getAllByUserId);
 
 // Crear workspace
 workspaceRouter.post("/", authMiddleware, WorkspaceController.create);
